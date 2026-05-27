@@ -1,0 +1,10 @@
+*.log
+.env
+.DS_Store
+backups/
+cert-data/
+# Local secrets
+manifests/02-secret.yaml
+*.pem
+*.key
+.env

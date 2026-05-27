@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nb-cert-automation
+  namespace: nb-cert-automation
+spec:
+  schedule: "0 2 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 5
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          serviceAccountName: nb-cert-automation
+          restartPolicy: Never
+          containers:
+            - name: nb-cert-automation
+              image: ghcr.io/sandipgangdhar/linode-nb-cert-automation:0.2.7
+              imagePullPolicy: IfNotPresent
+              envFrom:
+                - configMapRef:
+                    name: nb-cert-automation-config
+                - secretRef:
+                    name: nb-cert-automation-secrets
+              volumeMounts:
+                - name: data
+                  mountPath: /mnt
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: nb-cert-automation-data

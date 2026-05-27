@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nb-cert-automation-config
+  namespace: nb-cert-automation
+data:
+  DOMAIN: "akamai-demo.site"
+  INCLUDE_WILDCARD: "false"
+  ACME_DNS_PROVIDER: "dns_linode_v4"
+  NODEBALANCER_ID: "2227356"
+  VPC_SUBNET_ID: "320227"
+  NODEBALANCER_CONFIG_ID: ""
+  K8S_NAMESPACE: "default"
+  K8S_SECRET_NAME: "app-tls"
+  VALIDATION_HOST: "akamai-demo.site"
+  VALIDATION_PORT: "443"
+  BACKUP_RETENTION_COUNT: "10"
